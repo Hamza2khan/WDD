@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Balls</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        @keyframes ballAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-60px); }
+            100% { transform: translateY(0); }
+        }
+
+        .ball {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            animation: ballAnimation 4s infinite ease-in-out;
+        }
+
+        #red-ball {
+            background-color: red;
+            left: calc(50% - 80px);
+            background-color: red;
+            animation-delay: 0s;
+        }
+
+        #green-ball {
+            background-color: green;
+            left: calc(50% - 0px);
+            background-color: green;
+            animation-delay: 1.5s;
+        }
+
+        #blue-ball {
+            background-color: blue;
+            left: calc(50% + 80px);
+            background-color: blue;
+            animation-delay: 2.5s;
+        }
+
+        #red-ball:hover, #green-ball:hover, #blue-ball:hover {
+            background-color: #ea6e6e, #74db74, #8fcade;
+        }
+    </style>
+</head>
+<body>
+    <div id="red-ball" class="ball"></div>
+    <div id="green-ball" class="ball"></div>
+    <div id="blue-ball" class="ball"></div>
+</body>
+</html>
