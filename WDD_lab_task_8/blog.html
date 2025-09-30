@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Blog Posts</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #1a1a1a;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #007bff;
+            font-size: 2.5em;
+        }
+        #search-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        #search-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+        #sort-select {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        #posts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .post {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+        .post:hover {
+            transform: translateY(-5px);
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border: none;
+            background: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: #666;
+        }
+        .close-btn:hover {
+            color: #dc3545;
+        }
+        .post-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .post-body {
+            font-size: 0.95em;
+            line-height: 1.5;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .post-categories {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        .category {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            color: #007bff;
+        }
+        .post-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            color: #666;
+        }
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+        }
+        .stat:hover {
+            color: #007bff;
+        }
+        .stat i {
+            font-style: normal;
+        }
+        #loading {
+            text-align: center;
+            font-size: 1.2em;
+            color: #6c757d;
+        }
+        #error {
+            text-align: center;
+            color: #dc3545;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dynamic Blog Posts</h1>
+    </header>
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Search by title or body...">
+        <select id="sort-select">
+            <option value="title-asc">Sort by Title (A-Z)</option>
+            <option value="title-desc">Sort by Title (Z-A)</option>
+            <option value="likes-desc">Most Liked</option>
+            <option value="views-desc">Most Viewed</option>
+        </select>
+    </div>
+    <div id="loading">Loading posts...</div>
+    <div id="error"></div>
+    <div id="posts-container"></div>
+
+    <script>
+        let postsData = [
+            {
+                id: 1,
+                title: "His mother had always taught him",
+                body: "His mother had always taught him not to ever think of himself as better than others. He'd tried to live by this motto. H...",
+                categories: ["history", "american", "crime"],
+                likes: 192,
+                dislikes: 25,
+                views: 305
+            },
+            {
+                id: 2,
+                title: "He was an expert but not in a discipline",
+                body: "He was an expert but not in a discipline that anyone could fully appreciate. He knew how to hold the cone just right so...",
+                categories: ["teach", "fiction", "english"],
+                likes: 859,
+                dislikes: 32,
+                views: 4884
+            },
+            {
+                id: 3,
+                title: "Dave watched as the forest burned up on the hill",
+                body: "Dave watched as the forest burned up on the hill, only a few miles from her house. The car had been hastily packed and M...",
+                categories: ["magazine", "history", "french"],
+                likes: 1448,
+                dislikes: 39,
+                views: 4152
+            },
+            {
+                id: 4,
+                title: "All he wanted was a candy bar",
+                body: "All he wanted was a candy bar. It didn't seem like a difficult request to comprehend, but the clerk remained frozen and...",
+                categories: ["story", "american", "fiction"],
+                likes: 108,
+                dislikes: 6,
+                views: 240
+            },
+            {
+                id: 5,
+                title: "Hopes and dreams were dashed that day",
+                body: "Hopes and dreams were dashed that day. It should have been expected, but it still came as a shock. The warning signs had...",
+                categories: ["english", "drama", "teach"],
+                likes: 305,
+                dislikes: 15,
+                views: 1200
+            },
+            {
+                id: 6,
+                title: "Dave wasn't exactly sure how he had ended up",
+                body: "Dave wasn't exactly sure how he had ended up in this predicament. He ran through all the events that had lead to this cu...",
+                categories: ["history", "crime", "fiction"],
+                likes: 450,
+                dislikes: 20,
+                views: 1800
+            }
+        ];
+
+        function createPostElement(post) {
+            const postElement = document.createElement('article');
+            postElement.classList.add('post');
+            postElement.setAttribute('data-id', post.id);
+            postElement.innerHTML = `
+                <button class="close-btn" onclick="removePost(${post.id})">&times;</button>
+                <h2 class="post-title">${post.title}</h2>
+                <p class="post-body">${post.body}</p>
+                <div class="post-categories">
+                    ${post.categories.map(cat => `<span class="category">${cat}</span>`).join('')}
+                </div>
+                <div class="post-stats">
+                    <span class="stat like-stat" onclick="updateLike(${post.id}, true)"><i>❤️</i> <span class="likes-count">${post.likes}</span> Likes</span>
+                    <span class="stat dislike-stat" onclick="updateLike(${post.id}, false)"><i>👎</i> <span class="dislikes-count">${post.dislikes}</span> Dislikes</span>
+                    <span class="stat"><i>👁️</i> ${post.views} Views</span>
+                </div>
+            `;
+            return postElement;
+        }
+
+        function renderPosts(filteredPosts = postsData) {
+            const container = document.getElementById('posts-container');
+            container.innerHTML = '';
+            filteredPosts.forEach(post => {
+                const postElement = createPostElement(post);
+                container.appendChild(postElement);
+            });
+        }
+
+        function filterAndSortPosts() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const sortValue = document.getElementById('sort-select').value;
+
+            let filtered = postsData.filter(post => 
+                post.title.toLowerCase().includes(searchTerm) || 
+                post.body.toLowerCase().includes(searchTerm)
+            );
+
+            if (sortValue === 'title-asc') {
+                filtered.sort((a, b) => a.title.localeCompare(b.title));
+            } else if (sortValue === 'title-desc') {
+                filtered.sort((a, b) => b.title.localeCompare(a.title));
+            } else if (sortValue === 'likes-desc') {
+                filtered.sort((a, b) => b.likes - a.likes);
+            } else if (sortValue === 'views-desc') {
+                filtered.sort((a, b) => b.views - a.views);
+            }
+
+            renderPosts(filtered);
+        }
+
+        function removePost(postId) {
+            postsData = postsData.filter(post => post.id !== postId);
+            filterAndSortPosts();
+        }
+
+        function updateLike(postId, isLike) {
+            const post = postsData.find(p => p.id === postId);
+            if (post) {
+                if (isLike) {
+                    post.likes++;
+                } else {
+                    post.dislikes++;
+                }
+                // Update the display
+                const postElement = document.querySelector(`.post[data-id="${postId}"]`);
+                if (postElement) {
+                    if (isLike) {
+                        postElement.querySelector('.likes-count').textContent = post.likes;
+                    } else {
+                        postElement.querySelector('.dislikes-count').textContent = post.dislikes;
+                    }
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const loading = document.getElementById('loading');
+            loading.style.display = 'none';
+            renderPosts();
+
+            document.getElementById('search-input').addEventListener('input', filterAndSortPosts);
+            document.getElementById('sort-select').addEventListener('change', filterAndSortPosts);
+        });
+    </script>
+</body>
+</html>
