@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab task 4</title>
+</head>
+<style>
+    body{
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        display: grid;
+        place-items: center;
+
+
+    }
+    .box  {
+        display: grid;
+        grid-template-columns: 130px 230px 330px ; 
+            grid-template-rows: 60px 60px 60px 60px 60px 60px 60px; 
+            gap: 5px;
+            justify-content: center;
+align-content: center;
+      
+    }
+    .box > div {
+            display: grid;
+            place-items: center;
+    }
+ .box1{
+  grid-column: 1/2;
+  grid-row: 1/2;
+    background-color: rgb(2, 176, 246);
+    
+
+    }
+    .box2{
+        grid-column: 2/3;
+  grid-row: 1/4;
+background-color: rgb(22, 225, 228);
+
+    }.box3{
+        grid-column: 3/4;
+  grid-row: 1/2;
+background-color: rgb(234, 164, 11);
+
+    }.box4{
+        grid-column: 1/2;
+  grid-row: 2/4;
+background-color: rgb(255, 0, 0);
+
+    }.box5{
+        grid-column: 3/4;
+  grid-row: 2/5;
+background-color: rgb(68, 123, 22);
+
+    }.box6{
+        grid-column: 1/2;
+  grid-row: 4/5;
+background-color: rgb(2, 176, 246);
+
+    }.box7{
+        grid-column: 2/3;
+  grid-row: 4/5;
+background-color: rgb(2, 176, 246);
+
+    }.box8{
+        grid-column: 1/2;
+  grid-row: 5/7;
+background-color: rgb(2, 176, 246);
+
+    }.box9{
+            grid-column: 2/4;
+  grid-row: 5/7;
+background-color: rgb(2, 176, 246);
+
+    }
+
+
+</style>
+<body>
+    <div class="box">
+    <div class="box1"> box 1 </div>
+    <div class="box2"> box 2 </div>
+    <div class="box3"> box 3 </div>
+    <div class="box4"> box 4 </div>
+    <div class="box5"> box 5 </div>
+    <div class="box6"> box 6 </div>
+    <div class="box7"> box 7 </div>
+    <div class="box8"> box 8 </div>
+    <div class="box9"> box 9 </div>
+</div>
+</body>
+</html>
