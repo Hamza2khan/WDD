@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shop Page — Full Combined</title>
+
+  <!-- Bootstrap 5 and Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #b18743;
+      --dark: #1a1a1a;
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ---------- Offer Bar (TOP) ---------- */
+    .offer-bar {
+      background: var(--gold);
+      color: #fff;
+      text-align: center;
+      padding: 8px 12px;
+      font-size: 14px;
+      position: relative;
+      z-index: 60;
+    }
+    .offer-bar a { color: #fff; text-decoration: underline; }
+    .offer-bar button.close-offer {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 0;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* ---------- Top Black Bar ---------- */
+    .topbar {
+      background: var(--dark);
+      color: #fff;
+      font-size: 13px;
+      padding: 6px 0;
+      z-index: 55;
+    }
+    .topbar a { color: #fff; text-decoration: none; margin: 0 8px; }
+    .topbar a:hover { text-decoration: underline; }
+
+    /* ---------- Main Header (logo + search + icons) ---------- */
+    .header-main {
+      background: #fff;
+      border-bottom: 1px solid #e9e9e9;
+      padding: 12px 0;
+      z-index: 50;
+    }
+    .logo img { height: 50px; object-fit: contain; display: block; }
+    .search-field {
+      display: flex;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .search-field select {
+      border: 0;
+      background: #f6f6f6;
+      padding: 8px 10px;
+      font-size: 14px;
+      color: #444;
+      min-width: 150px;
+    }
+    .search-field input {
+      flex: 1;
+      border: 0;
+      padding: 8px 10px;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-field button {
+      width: 44px;
+      border: 0;
+      background: var(--gold);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header-icons a {
+      color: #111;
+      font-size: 18px;
+      margin-left: 14px;
+      position: relative;
+    }
+    .header-icons .badge {
+      font-size: 11px;
+      position: absolute;
+      top: -6px;
+      right: -10px;
+    }
+
+    /* ---------- Navbar area ---------- */
+    .navbar-area {
+      background: #fff;
+      border-bottom: 1px solid #e9e9e9;
+      z-index: 45;
+    }
+    .navbar-area .navbar { padding: 0; }
+    .navbar-nav .nav-link {
+      color: #000 !important;
+      font-weight: 500;
+      padding: 12px 14px !important;
+    }
+    .navbar-nav .nav-link:hover { color: var(--gold) !important; }
+
+    /* ---------- Mega menu (full-width) ---------- */
+    .dropdown.position-static > .dropdown-menu {
+      width: 100%;
+      top: 100%;
+      left: 0;
+      right: 0;
+      border: 0;
+      padding: 0;
+      background: transparent;
+    }
+    .mega-menu {
+      background: #fff;
+      border-top: 3px solid var(--gold);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      padding: 22px 0;
+    }
+    .mega-menu .col-title {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #000;
+      font-size: 14px;
+    }
+    .mega-menu a {
+      color: #555;
+      display: block;
+      margin-bottom: 6px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .mega-menu a:hover { color: var(--gold); }
+    .mega-product img { width: 100%; height: auto; border-radius: 6px; display: block; }
+
+    /* make dropdown visible on hover for desktop */
+    @media (min-width: 992px) {
+      .navbar .dropdown:hover > .dropdown-menu { display: block; }
+      .navbar .dropdown .dropdown-menu { margin-top: 0; }
+    }
+    @media (max-width: 991.98px) {
+      .dropdown.position-static > .dropdown-menu { position: static; }
+    }
+
+    /* ---------- Sticky Header (identical to main header) ---------- */
+    #stickyHeader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      transform: translateY(-120%);
+      transition: transform 0.35s ease;
+      z-index: 120;
+      background: #fff;
+      border-bottom: 2px solid var(--gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    #stickyHeader.visible { transform: translateY(0); }
+
+    /* shrink support for sticky */
+    #stickyHeader .logo img { height: 42px; }
+    #stickyHeader .search-field input { padding: 6px 8px; }
+    #stickyHeader .nav-link { padding: 10px 12px !important; font-size: 14px; }
+
+    /* small helpers */
+    .container-fluid.px-3 { padding-left: 16px; padding-right: 16px; }
+    @media (max-width: 767.98px) {
+      .header-icons a { margin-left: 8px; font-size: 16px; }
+      .search-field select { display: none; }
+      .logo { text-align: center; margin-bottom: 8px; }
+    }
+
+    /* ---------- Shop Page Styles ---------- */
+    .pro-content.shop-content { padding: 20px 0; }
+    .pro-heading-title { text-align: center; margin-bottom: 20px; }
+    .pro-heading-title h1 { font-size: 28px; font-weight: 700; color: #111; }
+    .products-area { margin-bottom: 30px; }
+    .top-bar { margin-bottom: 20px; }
+    .top-bar .filter-block {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px 0;
+    }
+    .top-bar .filter-block label {
+      font-size: 14px;
+      color: #333;
+      margin-right: 8px;
+      white-space: nowrap;
+    }
+    .top-bar .filter-block .select-control {
+      min-width: 120px;
+    }
+    .top-bar .filter-block .select-control select {
+      padding: 6px;
+      font-size: 14px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      width: 100%;
+    }
+    .top-bar .display-options {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .top-bar .display-options a { 
+      font-size: 18px;
+      color: #555;
+      cursor: pointer;
+    }
+    .top-bar .display-options a.active {
+      color: var(--gold);
+    }
+    .product { margin-bottom: 20px; }
+    .product article { background: #fff; border: 1px solid #e9e9e9; border-radius: 6px; padding: 10px; }
+    .pro-thumb { position: relative; }
+    .pro-image, .pro-image-hover { display: block; }
+    .pro-image-hover { position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.3s; }
+    .pro-thumb:hover .pro-image-hover { opacity: 1; }
+    .pro-icons { position: absolute; top: 10px; right: 10px; display: flex; gap: 8px; }
+    .pro-icons .icon { color: #555; font-size: 16px; cursor: pointer; }
+    .pro-icons .icon.active { color: var(--gold); }
+    .pro-tag { position: absolute; top: 10px; left: 10px; background: #dc3545; color: #fff; padding: 4px 8px; font-size: 12px; border-radius: 4px; }
+    .pro-tag.bg-success { background: #28a745; }
+    .pro-tag.bg-primary { background: #007bff; }
+    .pro-buttons { margin-top: 10px; }
+    .pro-buttons .btn { background: var(--gold); border: none; font-size: 14px; padding: 8px; }
+    .pro-description { padding: 10px; text-align: center; }
+    .pro-info { font-size: 12px; color: #777; }
+    .pro-title a { font-size: 16px; font-weight: 600; color: #111; text-decoration: none; }
+    .pro-title a:hover { color: var(--gold); }
+    .pro-price { margin: 10px 0; }
+    .pro-price ins { color: var(--gold); font-weight: 600; text-decoration: none; }
+    .pro-price del { color: #777; margin-right: 8px; }
+    .pro-options { margin: 10px 0; }
+    .color-selection, .size-selection { margin-bottom: 10px; }
+    .color-selection h4, .size-selection h4 { font-size: 14px; color: #333; margin-bottom: 5px; }
+    .color-selection ul, .size-selection ul { list-style: none; padding: 0; display: flex; gap: 8px; justify-content: center; }
+    .color-selection li a, .size-selection li a { display: block; width: 20px; height: 20px; border-radius: 50%; }
+    .color-selection li a.green { background: green; }
+    .color-selection li a.red { background: red; }
+    .size-selection li a { border-radius: 4px; border: 1px solid #ddd; text-align: center; line-height: 18px; font-size: 12px; }
+    .color-selection li.active a, .size-selection li.active a { border: 2px solid var(--gold); }
+    .pro-mobile-buttons .btn { background: var(--gold); border: none; font-size: 14px; padding: 8px; }
+    .pagination { margin-top: 20px; }
+    .loader-page { display: flex; list-style: none; padding: 0; gap: 8px; }
+    .loader-page-item a { color: #333; text-decoration: none; padding: 6px 12px; border: 1px solid #ddd; border-radius: 4px; }
+    .loader-page-item a:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
+    .showing_record, .showing_total_record { font-weight: 600; }
+
+    /* Grid vs List View */
+    #swap.grid-view .product { display: inline-block; }
+    #swap.list-view .product { display: block; width: 100%; }
+    #swap.list-view .pro-thumb { float: left; width: 30%; }
+    #swap.list-view .pro-description { float: left; width: 70%; text-align: left; padding: 20px; }
+    #swap.list-view .pro-mobile-buttons { float: left; width: 100%; }
+    @media (max-width: 767.98px) {
+      #swap.list-view .pro-thumb { width: 40%; }
+      #swap.list-view .pro-description { width: 60%; }
+    }
+
+    /* Responsive adjustments for top-bar */
+    @media (max-width: 991.98px) {
+      .top-bar .filter-block {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .top-bar .filter-block .select-control {
+        width: 100%;
+      }
+    }
+
+    /* ---------- Footer Styles ---------- */
+    .footer-three {
+      background: var(--dark);
+      color: #fff;
+      padding: 40px 0 20px;
+      font-size: 14px;
+    }
+    .footer-top-content h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .footer-top-content p {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    .footer-top-content .search {
+      display: flex;
+      align-items: center;
+    }
+    .footer-top-content .search input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+    .footer-top-content .search button {
+      padding: 8px 15px;
+      background: var(--gold);
+      border: none;
+      color: #fff;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    .single-footer h5 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    .single-footer ul {
+      list-style: none;
+      padding: 0;
+    }
+    .single-footer ul li {
+      margin-bottom: 10px;
+    }
+    .single-footer ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .single-footer ul li a:hover {
+      color: var(--gold);
+    }
+    .single-footer .logo img {
+      height: 40px;
+      object-fit: contain;
+    }
+    .copyright-content {
+      background: #111;
+      padding: 15px 0;
+      text-align: center;
+    }
+    .copyright-content a {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .copyright-content a:hover {
+      color: var(--gold);
+    }
+
+    /* ---------- Additional Elements ---------- */
+    #back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--gold);
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 18px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+    }
+    .notifications {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #28a745;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;
+      z-index: 1000;
+    }
+    .whatsapp-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+    .whatsapp-button img {
+      width: 40px;
+      height: 40px;
+    }
+    .switcher {
+      position: fixed;
+      top: 20%;
+      right: 0;
+      background: #fff;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+      z-index: 1000;
+      padding: 10px;
+    }
+    .switcher .btn {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+    }
+    .switcher a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #333;
+      margin: 10px 0;
+    }
+    .switcher a .text {
+      margin-right: 10px;
+    }
+    .switcher a .toggle {
+      width: 40px;
+      height: 20px;
+      background: #ccc;
+      border-radius: 10px;
+      position: relative;
+    }
+    .switcher a .toggle .circle {
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: left 0.3s;
+    }
+    .switcher .swicher-color .text {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .switcher .swicher-color ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 5px;
+    }
+    .switcher .swicher-color ul li {
+      margin: 0;
+    }
+    .switcher .swicher-color ul li a {
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+    .switcher .swicher-color ul li.active a {
+      border: 2px solid #000;
+    }
+    .modal-dialog .modal-body .container {
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .alert-cookie {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 600px;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <!-- ========== Offer Bar (TOP) ========== -->
+  <div class="offer-bar" id="offerBar">
+    Get UPTO 40% OFF on your 1st order — <a href="#">More details</a>
+    <button class="close-offer" id="closeOffer" aria-label="Close offer">&times;</button>
+  </div>
+
+  <!-- ========== Top Black Bar ========== -->
+  <div class="topbar">
+    <div class="container-fluid px-3 d-flex flex-wrap align-items-center justify-content-between">
+      <!-- left: language & currency -->
+      <div class="d-flex align-items-center">
+        <div class="dropdown me-3">
+          <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">English</a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="#">English</a></li>
+            <li><a class="dropdown-item" href="#">Arabic</a></li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">USD</a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="#">($) USD</a></li>
+            <li><a class="dropdown-item" href="#">(€) EUR</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- right: welcome & account -->
+      <div class="d-flex align-items-center">
+        <span class="me-3">Welcome User</span>
+        <div class="dropdown">
+          <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">My Account</a>
+          <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+            <li><a class="dropdown-item" href="wishlist.html">Wishlist (3)</a></li>
+            <li><a class="dropdown-item" href="compare.html">Compare (2)</a></li>
+            <li><a class="dropdown-item" href="orders.html">Orders</a></li>
+            <li><a class="dropdown-item" href="shipping-address.html">Shipping Address</a></li>
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Main Header (logo + search + icons) ========== -->
+  <div class="header-main">
+    <div class="container-fluid px-3">
+      <div class="row align-items-center gy-2">
+        <div class="col-12 col-md-3 col-lg-2 logo">
+          <a href="index.html"><img src="images/logo/logo.png" alt="logo"></a>
+        </div>
+
+        <div class="col-12 col-md-7 col-lg-8">
+          <form class="search-field" role="search" onsubmit="return false;">
+            <select aria-label="All categories">
+              <option selected>All Categories</option>
+              <option>Women’s Perfumes</option>
+              <option>Men’s Perfumes</option>
+              <option>Unisex Perfumes</option>
+              <option>Attar / Oil Based</option>
+              <option>Gift Sets</option>
+              <option>Miniatures / Travel Size</option>
+            </select>
+            <input type="search" placeholder="Search Products..." aria-label="Search products">
+            <button type="submit" aria-label="Search"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+
+        <div class="col-12 col-md-2 col-lg-2 d-flex justify-content-md-end justify-content-center header-icons">
+          <a href="wishlist.html" title="Wishlist"><i class="fa-regular fa-heart"></i><span class="badge bg-dark">3</span></a>
+          <a href="cart-page1.html" class="ms-3" title="Cart"><i class="fa-solid fa-cart-shopping"></i><span class="badge bg-dark">2</span></a>
+          <a href="login-page1.html" class="ms-3" title="Account"><i class="fa-regular fa-user"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Navigation Bar with Full-width Mega Menu ========== -->
+  <div class="navbar-area">
+    <div class="container-fluid px-3">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button">Home</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="index.html">Home 1</a></li>
+                <li><a class="dropdown-item" href="index-2.html">Home 2</a></li>
+                <li><a class="dropdown-item" href="index-3.html">Home 3</a></li>
+              </ul>
+            </li>
+
+            <!-- Mega menu: full width on large screens -->
+            <li class="nav-item dropdown position-static">
+              <a class="nav-link dropdown-toggle" href="#" role="button">Mega Menu <span class="badge bg-warning text-dark ms-1">New</span></a>
+              <div class="dropdown-menu">
+                <div class="mega-menu container-fluid">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="col-title">Categories</div>
+                      <a href="#">Women’s Perfumes</a>
+                      <a href="#">Men’s Perfumes</a>
+                      <a href="#">Unisex Perfumes</a>
+                      <a href="#">Attar / Oil Based</a>
+                      <a href="#">Luxury Collection</a>
+                      <a href="#">Gift Sets</a>
+                      <a href="#">Miniatures</a>
+                      <a href="#">Best Sellers</a>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="col-title">Departments</div>
+                      <a href="#">Eau de Parfum</a>
+                      <a href="#">Eau de Toilette</a>
+                      <a href="#">Oud Collection</a>
+                      <a href="#">Signature Scents</a>
+                      <a href="#">Limited Editions</a>
+                      <a href="#">Travel Size</a>
+                      <a href="#">Discovery Sets</a>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="col-title">Quick Links</div>
+                      <a href="#">Shop Instagram</a>
+                      <a href="#">Shop by Brands</a>
+                      <a href="#">Perfume Care Tips</a>
+                      <a href="#">Sell Your Perfume</a>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="row g-3">
+                        <div class="col-6 mega-product">
+                          <a href="product-page1.html">
+                            <img src="images/product_images/product_image_01.jpg" alt="Product 1">
+                            <div style="margin-top:6px;font-weight:600;color:#111;font-size:14px;">Golden Dusk Signature Perfume</div>
+                          </a>
+                        </div>
+                        <div class="col-6 mega-product">
+                          <a href="product-page1.html">
+                            <img src="images/product_images/product_image_02.jpg" alt="Product 2">
+                            <div style="margin-top:6px;font-weight:600;color:#111;font-size:14px;">Crystal Mist Eau de Parfum 100ml</div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button">Shop</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="shop-page1.html">Top Bar</a></li>
+                <li><a class="dropdown-item" href="shop-page2.html">Right Sidebar</a></li>
+                <li><a class="dropdown-item" href="shop-page3.html">Top + Right Sidebar</a></li>
+                <li><a class="dropdown-item" href="shop-page4.html">Left Sidebar</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button">Product</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="product-page1.html">Left Carousel</a></li>
+                <li><a class="dropdown-item" href="product-page2.html">Right Carousel</a></li>
+                <li><a class="dropdown-item" href="product-page3.html">Vertical Thumbnail</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button">Pages</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="about-page1.html">About Us</a></li>
+                <li><a class="dropdown-item" href="contact-page1.html">Contact Us</a></li>
+                <li><a class="dropdown-item" href="login-page1.html">Login</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ========== Sticky Header (IDENTICAL TO MAIN HEADER) ========== -->
+  <header id="stickyHeader" aria-hidden="true">
+    <div class="container-fluid px-3">
+      <div class="row align-items-center py-2">
+        <div class="col-3 col-md-2 logo">
+          <a href="index.html"><img src="images/logo/logo.png" alt="logo"></a>
+        </div>
+
+        <div class="col-6 col-md-7">
+          <form class="search-field" role="search" onsubmit="return false;">
+            <select aria-hidden="true" tabindex="-1">
+              <option>All Categories</option>
+            </select>
+            <input type="search" placeholder="Search Products..." aria-label="Search products (sticky)">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+
+        <div class="col-3 col-md-3 d-flex justify-content-end header-icons">
+          <a href="wishlist.html" title="Wishlist"><i class="fa-regular fa-heart"></i><span class="badge bg-dark">3</span></a>
+          <a href="cart-page1.html" class="ms-3" title="Cart"><i class="fa-solid fa-cart-shopping"></i><span class="badge bg-dark">2</span></a>
+          <a href="login-page1.html" class="ms-3" title="Account"><i class="fa-regular fa-user"></i></a>
+        </div>
+      </div>
+
+      <!-- Navbar inside sticky header (identical nav links) -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container-fluid px-0">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#stickyNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="stickyNav">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Mega Menu</a></li>
+              <li class="nav-item"><a class="nav-link" href="shop-page1.html">Shop</a></li>
+              <li class="nav-item"><a class="nav-link" href="product-page1.html">Product</a></li>
+              <li class="nav-item"><a class="nav-link" href="about-page1.html">Pages</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== Shop Page Content ========== -->
+  <div class="container-fluid">
+    <nav aria-label="breadcrumb">
+      <div class="container">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Shop</li>
+        </ol>
+      </div>
+    </nav>
+  </div>
+  <section class="pro-content shop-content shop-special">
+    <div class="container">
+      <div class="row">
+        <div class="pro-heading-title">
+          <h1>Shop Page</h1>
+        </div>
+      </div>
+      <div class="products-area">
+        <div class="top-bar">
+          <div class="row">
+            <div class="col-12">
+              <div class="filter-block d-flex justify-content-between flex-wrap">
+                <div class="display-options">
+                  <label>Display</label>
+                  <div class="buttons">
+                    <a href="javascript:void(0);" id="grid_4column" class="fas fa-th-large active" aria-label="Grid view"></a>
+                    <a href="javascript:void(0);" id="list_4column" class="fas fa-list" aria-label="List view"></a>
+                  </div>
+                </div>
+                <div class="filter-block-item">
+                  <label>Category</label>
+                  <div class="select-control">
+                    <select class="form-control">
+                      <option value="1">Eau de Parfum</option>
+                      <option value="2">Eau de Toilette</option>
+                      <option value="3">Luxury Collection</option>
+                      <option value="4">Gift Sets</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="filter-block-item">
+                  <label>Price</label>
+                  <div class="select-control">
+                    <select class="form-control">
+                      <option value="1">$1001-$2500</option>
+                      <option value="2">$501-$1000</option>
+                      <option value="3">0-$500</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="filter-block-item">
+                  <label>Size</label>
+                  <div class="select-control">
+                    <select class="form-control">
+                      <option value="1">Medium</option>
+                      <option value="2">Large</option>
+                      <option value="3">Small</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="filter-block-item">
+                  <label>Sort By</label>
+                  <div class="select-control">
+                    <select class="form-control">
+                      <option selected>Popular</option>
+                      <option value="1">Newest</option>
+                      <option value="2">Offers</option>
+                      <option value="3">Old</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="filter-block-item">
+                  <label>Items</label>
+                  <div class="select-control">
+                    <select class="form-control">
+                      <option selected>08</option>
+                      <option value="1">20</option>
+                      <option value="2">16</option>
+                      <option value="3">12</option>
+                      <option value="4">08</option>
+                      <option value="5">04</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="swap" class="col-12 col-sm-12 grid-view">
+            <div class="row">
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product">
+                  <article>
+                    <div class="pro-thumb pro-list-thumb">
+                      <div class="pro-icons mobile-pro-icons d-lg-none d-xl-none">
+                        <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                          <i class="fas fa-heart"></i>
+                        </a>
+                        <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                          <i class="fas fa-eye"></i>
+                        </div>
+                        <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                          <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                        </a>
+                      </div>
+                      <a href="product-page1.html">
+                        <span class="pro-image"><img class="img-fluid" src="images/product_images/product_image_01.jpg" alt="Product Image"></span>
+                        <span class="pro-image-hover swipe-to-top d-none d-lg-block d-xl-block">
+                          <img class="img-fluid" src="images/product_images/product_image_01_02.jpg" alt="Product Image">
+                        </span>
+                      </a>
+                      <div class="pro-buttons d-none d-lg-block d-xl-block">
+                        <div class="pro-icons">
+                          <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                            <i class="fas fa-heart"></i>
+                          </a>
+                          <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                            <i class="fas fa-eye"></i>
+                          </div>
+                          <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                            <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                          </a>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                    <div class="pro-description">
+                      <span class="pro-info">Rose whisper</span>
+                      <h2 class="pro-title"><a href="product-page1.html">Golden Dusk Signature Perfume</a></h2>
+                      <div class="pro-price">
+                        <ins>$285</ins>
+                      </div>
+                      <div class="list2">
+                        <div class="pro-options">
+                          <div class="color-selection">
+                            <h4>Color: <span>Silver</span></h4>
+                            <ul>
+                              <li class="active"><a class="green" href="javascript:void(0);" tabindex="0" aria-label="Green color"></a></li>
+                              <li><a class="red" href="javascript:void(0);" tabindex="0" aria-label="Red color"></a></li>
+                            </ul>
+                          </div>
+                          <div class="size-selection">
+                            <h4>Size: <span>28</span></h4>
+                            <ul>
+                              <li class="active"><a href="javascript:void(0);" tabindex="0">28</a></li>
+                              <li><a href="javascript:void(0);" tabindex="0">32</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pro-mobile-buttons d-lg-none d-xl-none">
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product">
+                  <article>
+                    <div class="pro-thumb pro-list-thumb">
+                      <div class="pro-icons mobile-pro-icons d-lg-none d-xl-none">
+                        <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                          <i class="fas fa-heart"></i>
+                        </a>
+                        <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                          <i class="fas fa-eye"></i>
+                        </div>
+                        <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                          <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                        </a>
+                      </div>
+                      <div class="pro-tag">Sale</div>
+                      <a href="product-page1.html">
+                        <span class="pro-image"><img class="img-fluid" src="images/product_images/product_image_02.jpg" alt="Product Image"></span>
+                        <span class="pro-image-hover swipe-to-top d-none d-lg-block d-xl-block">
+                          <img class="img-fluid" src="images/product_images/product_image_02_02.jpg" alt="Product Image">
+                        </span>
+                      </a>
+                      <div class="pro-buttons d-none d-lg-block d-xl-block">
+                        <div class="pro-icons">
+                          <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                            <i class="fas fa-heart"></i>
+                          </a>
+                          <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                            <i class="fas fa-eye"></i>
+                          </div>
+                          <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                            <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                          </a>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                    <div class="pro-description">
+                      <span class="pro-info">Crystal Mist</span>
+                      <h2 class="pro-title"><a href="product-page1.html">Crystal Mist Eau de Parfum 100ml</a></h2>
+                      <div class="pro-price">
+                        <del>$450</del><ins>$285</ins>
+                      </div>
+                      <div class="list2">
+                        <div class="pro-options">
+                          <div class="color-selection">
+                            <h4>Color: <span>Silver</span></h4>
+                            <ul>
+                              <li class="active"><a class="green" href="javascript:void(0);" tabindex="0" aria-label="Green color"></a></li>
+                              <li><a class="red" href="javascript:void(0);" tabindex="0" aria-label="Red color"></a></li>
+                            </ul>
+                          </div>
+                          <div class="size-selection">
+                            <h4>Size: <span>28</span></h4>
+                            <ul>
+                              <li class="active"><a href="javascript:void(0);" tabindex="0">28</a></li>
+                              <li><a href="javascript:void(0);" tabindex="0">32</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pro-mobile-buttons d-lg-none d-xl-none">
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product">
+                  <article>
+                    <div class="pro-thumb pro-list-thumb">
+                      <div class="pro-icons mobile-pro-icons d-lg-none d-xl-none">
+                        <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                          <i class="fas fa-heart"></i>
+                        </a>
+                        <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                          <i class="fas fa-eye"></i>
+                        </div>
+                        <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                          <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                        </a>
+                      </div>
+                      <div class="pro-tag">Sale</div>
+                      <a href="product-page1.html">
+                        <span class="pro-image"><img class="img-fluid" src="images/product_images/product_image_03.jpg" alt="Product Image"></span>
+                        <span class="pro-image-hover swipe-to-top d-none d-lg-block d-xl-block">
+                          <img class="img-fluid" src="images/product_images/product_image_03_02.jpg" alt="Product Image">
+                        </span>
+                      </a>
+                      <div class="pro-buttons d-none d-lg-block d-xl-block">
+                        <div class="pro-icons">
+                          <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                            <i class="fas fa-heart"></i>
+                          </a>
+                          <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                            <i class="fas fa-eye"></i>
+                          </div>
+                          <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                            <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                          </a>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                    <div class="pro-description">
+                      <span class="pro-info">Golden Dusk</span>
+                      <h2 class="pro-title"><a href="product-page1.html">Golden Dusk Signature Perfume</a></h2>
+                      <div class="pro-price">
+                        <del>$120</del><ins>$85</ins>
+                      </div>
+                      <div class="list2">
+                        <div class="pro-options">
+                          <div class="color-selection">
+                            <h4>Color: <span>Silver</span></h4>
+                            <ul>
+                              <li class="active"><a class="green" href="javascript:void(0);" tabindex="0" aria-label="Green color"></a></li>
+                              <li><a class="red" href="javascript:void(0);" tabindex="0" aria-label="Red color"></a></li>
+                            </ul>
+                          </div>
+                          <div class="size-selection">
+                            <h4>Size: <span>28</span></h4>
+                            <ul>
+                              <li class="active"><a href="javascript:void(0);" tabindex="0">28</a></li>
+                              <li><a href="javascript:void(0);" tabindex="0">32</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pro-mobile-buttons d-lg-none d-xl-none">
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product">
+                  <article>
+                    <div class="pro-thumb pro-list-thumb">
+                      <div class="pro-icons mobile-pro-icons d-lg-none d-xl-none">
+                        <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                          <i class="fas fa-heart"></i>
+                        </a>
+                        <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                          <i class="fas fa-eye"></i>
+                        </div>
+                        <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                          <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                        </a>
+                      </div>
+                      <a href="product-page1.html">
+                        <span class="pro-image"><img class="img-fluid" src="images/product_images/product_image_04.jpg" alt="Product Image"></span>
+                        <span class="pro-image-hover swipe-to-top d-none d-lg-block d-xl-block">
+                          <img class="img-fluid" src="images/product_images/product_image_04_02.jpg" alt="Product Image">
+                        </span>
+                      </a>
+                      <div class="pro-buttons d-none d-lg-block d-xl-block">
+                        <div class="pro-icons">
+                          <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                            <i class="fas fa-heart"></i>
+                          </a>
+                          <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                            <i class="fas fa-eye"></i>
+                          </div>
+                          <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                            <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                          </a>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                    <div class="pro-description">
+                      <span class="pro-info">Crystal Mist</span>
+                      <h2 class="pro-title"><a href="product-page1.html">Crystal Mist Eau de Parfum 100ml</a></h2>
+                      <div class="pro-price">
+                        <ins>$110</ins>
+                      </div>
+                      <div class="list2">
+                        <div class="pro-options">
+                          <div class="color-selection">
+                            <h4>Color: <span>Silver</span></h4>
+                            <ul>
+                              <li class="active"><a class="green" href="javascript:void(0);" tabindex="0" aria-label="Green color"></a></li>
+                              <li><a class="red" href="javascript:void(0);" tabindex="0" aria-label="Red color"></a></li>
+                            </ul>
+                          </div>
+                          <div class="size-selection">
+                            <h4>Size: <span>28</span></h4>
+                            <ul>
+                              <li class="active"><a href="javascript:void(0);" tabindex="0">28</a></li>
+                              <li><a href="javascript:void(0);" tabindex="0">32</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pro-mobile-buttons d-lg-none d-xl-none">
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product">
+                  <article>
+                    <div class="pro-thumb pro-list-thumb">
+                      <div class="pro-icons mobile-pro-icons d-lg-none d-xl-none">
+                        <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                          <i class="fas fa-heart"></i>
+                        </a>
+                        <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                          <i class="fas fa-eye"></i>
+                        </div>
+                        <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                          <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                        </a>
+                      </div>
+                      <a href="product-page1.html">
+                        <span class="pro-image"><img class="img-fluid" src="images/product_images/product_image_05.jpg" alt="Product Image"></span>
+                        <span class="pro-image-hover swipe-to-top d-none d-lg-block d-xl-block">
+                          <img class="img-fluid" src="images/product_images/product_image_05_02.jpg" alt="Product Image">
+                        </span>
+                      </a>
+                      <div class="pro-buttons d-none d-lg-block d-xl-block">
+                        <div class="pro-icons">
+                          <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                            <i class="fas fa-heart"></i>
+                          </a>
+                          <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                            <i class="fas fa-eye"></i>
+                          </div>
+                          <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                            <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                          </a>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                    <div class="pro-description">
+                      <span class="pro-info">Viennois Crystal</span>
+                      <h2 class="pro-title"><a href="product-page1.html">Viennois Crystal Bloom Eau de Parfum</a></h2>
+                      <div class="pro-price">
+                        <del>$220</del><ins>$185</ins>
+                      </div>
+                      <div class="list2">
+                        <div class="pro-options">
+                          <div class="color-selection">
+                            <h4>Color: <span>Silver</span></h4>
+                            <ul>
+                              <li class="active"><a class="green" href="javascript:void(0);" tabindex="0" aria-label="Green color"></a></li>
+                              <li><a class="red" href="javascript:void(0);" tabindex="0" aria-label="Red color"></a></li>
+                            </ul>
+                          </div>
+                          <div class="size-selection">
+                            <h4>Size: <span>28</span></h4>
+                            <ul>
+                              <li class="active"><a href="javascript:void(0);" tabindex="0">28</a></li>
+                              <li><a href="javascript:void(0);" tabindex="0">32</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pro-mobile-buttons d-lg-none d-xl-none">
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product">
+                  <article>
+                    <div class="pro-thumb pro-list-thumb">
+                      <div class="pro-icons mobile-pro-icons d-lg-none d-xl-none">
+                        <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                          <i class="fas fa-heart"></i>
+                        </a>
+                        <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                          <i class="fas fa-eye"></i>
+                        </div>
+                        <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                          <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                        </a>
+                      </div>
+                      <div class="pro-tag bg-success">NEW</div>
+                      <a href="product-page1.html">
+                        <span class="pro-image"><img class="img-fluid" src="images/product_images/product_image_06.jpg" alt="Product Image"></span>
+                        <span class="pro-image-hover swipe-to-top d-none d-lg-block d-xl-block">
+                          <img class="img-fluid" src="images/product_images/product_image_06_02.jpg" alt="Product Image">
+                        </span>
+                      </a>
+                      <div class="pro-buttons d-none d-lg-block d-xl-block">
+                        <div class="pro-icons">
+                          <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                            <i class="fas fa-heart"></i>
+                          </a>
+                          <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                            <i class="fas fa-eye"></i>
+                          </div>
+                          <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                            <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                          </a>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                    <div class="pro-description">
+                      <span class="pro-info">Golden Chain</span>
+                      <h2 class="pro-title"><a href="product-page1.html">Golden Chain Luxe Eau de Parfum</a></h2>
+                      <div class="pro-price">
+                        <del>$140</del><ins>$81</ins>
+                      </div>
+                      <div class="list2">
+                        <div class="pro-options">
+                          <div class="color-selection">
+                            <h4>Color: <span>Silver</span></h4>
+                            <ul>
+                              <li class="active"><a class="green" href="javascript:void(0);" tabindex="0" aria-label="Green color"></a></li>
+                              <li><a class="red" href="javascript:void(0);" tabindex="0" aria-label="Red color"></a></li>
+                            </ul>
+                          </div>
+                          <div class="size-selection">
+                            <h4>Size: <span>28</span></h4>
+                            <ul>
+                              <li class="active"><a href="javascript:void(0);" tabindex="0">28</a></li>
+                              <li><a href="javascript:void(0);" tabindex="0">32</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pro-mobile-buttons d-lg-none d-xl-none">
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product">
+                  <article>
+                    <div class="pro-thumb pro-list-thumb">
+                      <div class="pro-icons mobile-pro-icons d-lg-none d-xl-none">
+                        <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                          <i class="fas fa-heart"></i>
+                        </a>
+                        <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                          <i class="fas fa-eye"></i>
+                        </div>
+                        <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                          <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                        </a>
+                      </div>
+                      <div class="pro-tag bg-primary">Featured</div>
+                      <a href="product-page1.html">
+                        <span class="pro-image"><img class="img-fluid" src="images/product_images/product_image_07.jpg" alt="Product Image"></span>
+                        <span class="pro-image-hover swipe-to-top d-none d-lg-block d-xl-block">
+                          <img class="img-fluid" src="images/product_images/product_image_07_02.jpg" alt="Product Image">
+                        </span>
+                      </a>
+                      <div class="pro-buttons d-none d-lg-block d-xl-block">
+                        <div class="pro-icons">
+                          <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                            <i class="fas fa-heart"></i>
+                          </a>
+                          <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                            <i class="fas fa-eye"></i>
+                          </div>
+                          <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                            <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                          </a>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                    <div class="pro-description">
+                      <span class="pro-info">Majestic Bloom</span>
+                      <h2 class="pro-title"><a href="product-page1.html">Majestic Bloom Eau de Parfume</a></h2>
+                      <div class="pro-price">
+                        <del>$120</del><ins>$85</ins>
+                      </div>
+                      <div class="list2">
+                        <div class="pro-options">
+                          <div class="color-selection">
+                            <h4>Color: <span>Silver</span></h4>
+                            <ul>
+                              <li class="active"><a class="green" href="javascript:void(0);" tabindex="0" aria-label="Green color"></a></li>
+                              <li><a class="red" href="javascript:void(0);" tabindex="0" aria-label="Red color"></a></li>
+                            </ul>
+                          </div>
+                          <div class="size-selection">
+                            <h4>Size: <span>28</span></h4>
+                            <ul>
+                              <li class="active"><a href="javascript:void(0);" tabindex="0">28</a></li>
+                              <li><a href="javascript:void(0);" tabindex="0">32</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pro-mobile-buttons d-lg-none d-xl-none">
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-3">
+                <div class="product">
+                  <article>
+                    <div class="pro-thumb pro-list-thumb">
+                      <div class="pro-icons mobile-pro-icons d-lg-none d-xl-none">
+                        <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                          <i class="fas fa-heart"></i>
+                        </a>
+                        <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                          <i class="fas fa-eye"></i>
+                        </div>
+                        <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                          <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                        </a>
+                      </div>
+                      <div class="pro-tag bg-success">NEW</div>
+                      <a href="product-page1.html">
+                        <span class="pro-image"><img class="img-fluid" src="images/product_images/product_image_08.jpg" alt="Product Image"></span>
+                        <span class="pro-image-hover swipe-to-top d-none d-lg-block d-xl-block">
+                          <img class="img-fluid" src="images/product_images/product_image_08_02.jpg" alt="Product Image">
+                        </span>
+                      </a>
+                      <div class="pro-buttons d-none d-lg-block d-xl-block">
+                        <div class="pro-icons">
+                          <a href="wishlist.html" class="icon active swipe-to-top" aria-label="Add to wishlist">
+                            <i class="fas fa-heart"></i>
+                          </a>
+                          <div class="icon swipe-to-top" data-bs-toggle="modal" data-bs-target="#quickViewModal" aria-label="Quick view">
+                            <i class="fas fa-eye"></i>
+                          </div>
+                          <a href="compare.html" class="icon swipe-to-top" aria-label="Compare">
+                            <i class="fas fa-align-right" data-fa-transform="rotate-90"></i>
+                          </a>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                    <div class="pro-description">
+                      <span class="pro-info">Necklace</span>
+                      <h2 class="pro-title"><a href="product-page1.html">Velour Heart Luxe Perfume</a></h2>
+                      <div class="pro-price">
+                        <ins>$85</ins>
+                      </div>
+                      <div class="list2">
+                        <div class="pro-options">
+                          <div class="color-selection">
+                            <h4>Color: <span>Silver</span></h4>
+                            <ul>
+                              <li class="active"><a class="green" href="javascript:void(0);" tabindex="0" aria-label="Green color"></a></li>
+                              <li><a class="red" href="javascript:void(0);" tabindex="0" aria-label="Red color"></a></li>
+                            </ul>
+                          </div>
+                          <div class="size-selection">
+                            <h4>Size: <span>28</span></h4>
+                            <ul>
+                              <li class="active"><a href="javascript:void(0);" tabindex="0">28</a></li>
+                              <li><a href="javascript:void(0);" tabindex="0">32</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pro-mobile-buttons d-lg-none d-xl-none">
+                        <button type="button" class="btn btn-secondary btn-block swipe-to-top" onclick="notificationCart();">Add to Cart</button>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pagination justify-content-between">
+          <label class="col-form-label">Showing 1&ndash;<span class="showing_record">1</span>&nbsp;of&nbsp;<span class="showing_total_record">23</span>&nbsp;results.</label>
+          <div class="col-12 col-sm-6">
+            <ol class="loader-page">
+              <li class="loader-page-item"><a href="#" aria-label="Previous page"><i class="fa fa-angle-double-left" style="font-size:12px"></i></a></li>
+              <li class="loader-page-item"><a href="#">1</a></li>
+              <li class="loader-page-item"><a href="#">2</a></li>
+              <li class="loader-page-item"><a href="#">3</a></li>
+              <li class="loader-page-item"><a href="#">4</a></li>
+              <li class="loader-page-item"><a href="#" aria-label="Next page"><i class="fa fa-angle-double-right" style="font-size:12px"></i></a></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Quick View Modal (Placeholder) ========== -->
+  <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="quickViewModalLabel">Quick View</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Placeholder content; replace with actual product details -->
+          <p>Quick view content goes here. Please provide the modal content if needed.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- //footer style three -->
+    <footer id="footerThree" class="footer-area footer-three footer-desktop d-none d-lg-block d-xl-block">
+        <div class="container">
+            <div class="footer-top-content">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-7">
+                        <h4>SIGN UP FOR OUR NEWSLETTER & RECEIVE EXCLUSIVE UPDATES</h4>
+                        <p>
+                          Join the Rose Whisper community to discover our latest luxury fragrances, special collections, and limited edition releases.
+                        </p>
+                        
+                    </div>
+                    <div class="col-12 col-lg-5">
+                        <form class="form-inline">
+                            <div class="search">
+                                <input type="search" placeholder="Your Email ...">
+
+                                <button class="btn btn-secondary swipe-to-top" type="submit">
+                           Subscribe
+                          </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    <div class="single-footer">
+
+                        <div class="pro-about">
+                            <h5>Store</h5>
+
+                            <ul class="pl-0 mb-0">
+                                <li>
+                                    <a href="index.html" class="logo" data-toggle="tooltip" data-placement="bottom" title="logo">
+                        <img class="img-fuild" src="images/logo/logo.png" alt="logo here">                                            
+                      </a>
+                                </li>
+                                <li> <span>1223, Main Street, muzafrabad</span> </li>
+                                <li><span>+92 3118505731</span><span><a href="#">info@rosewhisper.com.com</a> </span> </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                    <div class="single-footer">
+                        <h5>Info</h5>
+
+                        <ul class="pl-0 mb-0">
+                            <li> <a href="index.html">Home</a> </li>
+                            <li> <a href="blog-page1.html">Blog</a> </li>
+                            <li> <a href="about-page1.html">About Us</a> </li>
+                            <li> <a href="contact-page1.html">Contact Us</a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                    <div class="single-footer">
+                        <h5>Our Polices</h5>
+
+                        <ul class="pl-0 mb-0">
+                            <li> <a href="#">FAQs</a> </li>
+                            <li> <a href="privacy.html">Privacy Policy</a> </li>
+                            <li> <a href="refund.html">Refund Policy</a> </li>
+                            <li> <a href="term.html">Terms of Service</a> </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                    <div class="single-footer">
+                        <h5>My Account</h5>
+
+                        <ul class="pl-0 mb-0">
+
+                            <li> <a href="shop-page1.html">Shop</a> </li>
+                            <li> <a href="orders.html">Orders</a> </li>
+                            <li> <a href="cart-page1.html">Shopping Cart</a> </li>
+                            <li> <a href="wishlist.html">Wishlist</a> </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-2">
+                    <div class="single-footer">
+                        <h5>Social Network</h5>
+
+                        <ul class="pl-0 mb-0">
+
+                            <li> <a href="shop-page1.html">Facebook</a> </li>
+                            <li> <a href="orders.html">Twitter</a> </li>
+                            <li> <a href="cart-page1.html">Instagram </a> </li>
+                            <li> <a href="wishlist.html">Linkedin</a> </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid p-0">
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-12 col-sm-12">
+                            <div class="footer-info">
+                                &copy;&nbsp;2019 Company, Inc. <a href="privacy.html">Privacy</a>&nbsp;&bull;&nbsp;<a href="term.html">Terms</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Newsletter Modal -->
+    
+
+    <div class="alert alert-warning alert-dismissible alert-cookie fade show" role="alert">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-8 col-lg-9">
+                    <div class="pro-description">
+                        This site uses cookies. By continuing to browse the site you are agreeing to our use of cookies. Review our <a href="#" class="btn-link">cookies information</a> for more details.
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                    <button type="button" class="btn btn-secondary swipe-to-top" data-dismiss="alert" aria-label="Close">
+                            OK, I agree
+                          </button>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/+923118505731" target="_blank" class="whatsapp-button">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Offer bar close
+    document.getElementById('closeOffer').addEventListener('click', function() {
+      document.getElementById('offerBar').style.display = 'none';
+    });
+
+    // Sticky header: identical to main header, slides down when scroll past threshold
+    (function() {
+      const sticky = document.getElementById('stickyHeader');
+      const threshold = 220; // px scrolled before sticky appears
+      let lastScroll = 0;
+
+      window.addEventListener('scroll', function() {
+        const sc = window.scrollY || window.pageYOffset;
+        if (sc > threshold) {
+          if (!sticky.classList.contains('visible')) {
+            sticky.classList.add('visible');
+            sticky.setAttribute('aria-hidden', 'false');
+          }
+        } else {
+          if (sticky.classList.contains('visible')) {
+            sticky.classList.remove('visible');
+            sticky.setAttribute('aria-hidden', 'true');
+          }
+        }
+        lastScroll = sc;
+      });
+    })();
+
+    // Grid/List toggle
+    (function() {
+      const swap = document.getElementById('swap');
+      const gridBtn = document.getElementById('grid_4column');
+      const listBtn = document.getElementById('list_4column');
+
+      gridBtn.addEventListener('click', function() {
+        swap.classList.remove('list-view');
+        swap.classList.add('grid-view');
+        gridBtn.classList.add('active');
+        listBtn.classList.remove('active');
+      });
+
+      listBtn.addEventListener('click', function() {
+        swap.classList.remove('grid-view');
+        swap.classList.add('list-view');
+        listBtn.classList.add('active');
+        gridBtn.classList.remove('active');
+      });
+    })();
+
+    // Placeholder for notificationCart function
+    function notificationCart() {
+      alert('Item added to cart!'); // Replace with actual cart logic
+    }
+
+    // Improve focus for accessibility when dropdowns are hovered on desktop
+    (function() {
+      const dropdowns = document.querySelectorAll('.navbar .dropdown');
+      dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        toggle.addEventListener('focus', function() {
+          dropdown.querySelector('.dropdown-menu').classList.add('show');
+        });
+        toggle.addEventListener('blur', function(e) {
+          if (!dropdown.contains(e.relatedTarget)) {
+            dropdown.querySelector('.dropdown-menu').classList.remove('show');
+          }
+        });
+      });
+    })();
+
+    // Back to top button logic
+    (function() {
+      const backToTop = document.getElementById('back-to-top');
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+          backToTop.style.opacity = 1;
+        } else {
+          backToTop.style.opacity = 0;
+        }
+      });
+      backToTop.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
+</body>
+</html>
