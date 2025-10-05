@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Registration Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+    * { box-sizing: border-box; }
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+    .form-container {
+        background: #fff;
+        padding: 40px 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        width: 100%;
+        max-width: 500px;
+    }
+    .form-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: #2c3e50;
+    }
+    .form-group {
+        margin-bottom: 20px;
+        position: relative;
+    }
+    label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 6px;
+        color: #34495e;
+    }
+    .instruction {
+        font-size: 0.85em;
+        color: #7f8c8d;
+        margin-top: 4px;
+    }
+    input {
+        width: 100%;
+        padding: 14px 15px;
+        border: 1px solid #bdc3c7;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+    input:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        outline: none;
+    }
+    .input-error {
+        border-color: #e74c3c;
+        box-shadow: 0 0 8px rgba(231, 76, 60, 0.3);
+    }
+    .error {
+        color: #e74c3c;
+        font-size: 0.85em;
+        margin-top: 4px;
+        display: none;
+    }
+    button {
+        background: linear-gradient(90deg, #3498db, #2980b9);
+        color: #fff;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 500;
+        border: none;
+        border-radius: 8px;
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    button:hover:not(:disabled) {
+        background: linear-gradient(90deg, #2980b9, #3498db);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    button:disabled {
+        background: #95a5a6;
+        cursor: not-allowed;
+    }
+    .show-password {
+        position: absolute;
+        top: 38px;
+        right: 12px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #3498db;
+        user-select: none;
+    }
+    @media(max-width: 600px){
+        .form-container { padding: 30px 20px; }
+    }
+</style>
+</head>
+<body>
+<div class="form-container">
+    <h2 class="form-title">Sign Up</h2>
+    <form id="myForm" onsubmit="return validateForm(event)">
+        <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" oninput="validateField('fname')">
+            <div class="instruction">At least 3 characters</div>
+            <span id="fnameError" class="error">First name must be at least 3 characters</span>
+        </div>
+        <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" oninput="validateField('lname')">
+            <div class="instruction">Maximum 10 characters</div>
+            <span id="lnameError" class="error">Last name must not exceed 10 characters</span>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" oninput="validateField('email')">
+            <div class="instruction">Enter a valid email (e.g., user@example.com)</div>
+            <span id="emailError" class="error">Please enter a valid email</span>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" oninput="validateField('phone')">
+            <div class="instruction">7 to 15 digits only</div>
+            <span id="phoneError" class="error">Enter a valid phone number</span>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" oninput="validateField('password')">
+            <span class="show-password" onclick="togglePassword('password')">Show</span>
+            <div class="instruction">Min 8 chars, 1 uppercase, 1 number, 1 special char (!@#$%)</div>
+            <span id="passwordError" class="error">Password must meet requirements</span>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" oninput="validateField('confirmPassword')">
+            <span class="show-password" onclick="togglePassword('confirmPassword')">Show</span>
+            <div class="instruction">Must match the password above</div>
+            <span id="confirmPasswordError" class="error">Passwords do not match</span>
+        </div>
+        <button type="submit" id="submitButton" disabled>Register</button>
+    </form>
+</div>
+
+<script>
+    function togglePassword(id){
+        const input = document.getElementById(id);
+        input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function validateField(fieldId) {
+        const field = document.getElementById(fieldId);
+        const error = document.getElementById(fieldId + 'Error');
+        const submitButton = document.getElementById('submitButton');
+        let isValid = true;
+
+        if (fieldId === 'fname') isValid = field.value.trim().length >= 3;
+        else if (fieldId === 'lname') isValid = field.value.trim().length <= 10 && field.value.trim().length > 0;
+        else if (fieldId === 'email') isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value.trim());
+        else if (fieldId === 'phone') isValid = /^[0-9]{7,15}$/.test(field.value.trim());
+        else if (fieldId === 'password') isValid = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(field.value);
+        else if (fieldId === 'confirmPassword') isValid = field.value === document.getElementById('password').value && field.value !== '';
+
+        field.classList.toggle('input-error', !isValid);
+        error.style.display = isValid ? 'none' : 'block';
+
+        const allValid = ['fname','lname','email','phone','password','confirmPassword'].every(id=>{
+            const val = document.getElementById(id).value.trim();
+            if(id==='fname') return val.length >= 3;
+            if(id==='lname') return val.length <=10 && val.length>0;
+            if(id==='email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+            if(id==='phone') return /^[0-9]{7,15}$/.test(val);
+            if(id==='password') return /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(val);
+            if(id==='confirmPassword') return val === document.getElementById('password').value && val!=='';
+            return true;
+        });
+
+        submitButton.disabled = !allValid;
+        return isValid;
+    }
+
+    function validateForm(event){
+        event.preventDefault();
+        const fields=['fname','lname','email','phone','password','confirmPassword'];
+        let isValid=true;
+        fields.forEach(id=>{ if(!validateField(id)) isValid=false; });
+
+        if(isValid){
+            const data={
+                fname: document.getElementById('fname').value.trim(),
+                lname: document.getElementById('lname').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+            };
+            alert('Form submitted successfully!\n'+JSON.stringify(data,null,2));
+            document.getElementById('myForm').reset();
+            document.querySelectorAll('.error').forEach(e=>e.style.display='none');
+            document.querySelectorAll('input').forEach(i=>i.classList.remove('input-error'));
+            document.getElementById('submitButton').disabled=true;
+        }
+        return isValid;
+    }
+</script>
+</body>
+</html>
