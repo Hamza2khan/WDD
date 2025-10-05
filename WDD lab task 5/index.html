@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Poppins Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Gradient on Image</title>
+  <style>
+    /* Your original CSS */
+    .image-gradient {
+      background: linear-gradient(rgba(25, 76, 99, 0.7), rgba(43, 97, 104, 0.7)), url('home-banner-bg.webp');
+      height: 450px;
+      background-size: cover;
+      background-position: center;
+      min-width: 100%;
+    }
+
+    .main_nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+    }
+    .main_nav button{
+      background-color: #cb7218;
+    }
+
+    .nav_items {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      align-items: center;
+      white-space: nowrap; 
+    }
+
+    .nav_items li {
+      display: inline-block; 
+    }
+    a{
+      color: white;
+      text-decoration: none;
+    }
+
+    .main_section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      margin-top: 50px;
+      height: 300px; 
+      padding: 0 20px;
+    }
+
+    .main_section h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      width: 225px;
+    }
+
+    .main_section p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .hero-buttons button {
+      padding: 10px 15px;
+      border: none;
+      background-color: rgb(38, 152, 234);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      width: 171px;
+    }
+    .hero-button button {
+      padding: 10px 15px;
+      border: none;
+      background-color: rgb(234, 123, 38);
+      color: rgb(255, 255, 255);
+      font-weight: bold;
+      cursor: pointer;
+      width: 171px;
+    }
+
+    .blue_block {
+      background-color: #61b9dc;
+      padding: 50px 80px;
+      color: white;
+    }
+
+    .blue_content {
+      display: flex;
+      justify-content: space-evenly;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .stat small {
+      font-size: 14px;
+      font-weight: normal;
+      color: #ddd;
+    }
+
+    .bullet-points ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 30px 0;
+    }
+
+    .bullet-section {
+      display: flex;
+      background-color: #c7dee8;  
+      padding: 20px 10px;
+      align-items: center;
+      margin:0 auto ;
+      justify-content: space-between;
+      width: 1200px;
+    }
+    .bullet-points {
+      flex: 1;
+      min-width: 45%;
+      padding: 0 40px;
+    }
+
+    .bullet-points li {
+      display: flex;
+      align-items: center;
+      gap: 15px; 
+      font-size: 12px;
+      font-weight: normal;
+    }
+
+    .circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 20px;
+      background-color: #3b82f6; 
+    }
+
+    .circle.yellow {
+      background-color: #facc15; 
+    }
+    .image-container {
+      flex: 1;
+      width: 65%;
+      height: 90%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+    }
+
+    button {
+      padding: 12px 18px;
+      background-color: #3b82f6; 
+      color: white;
+      font-size: 12px;
+      border: none;
+      width: 45%;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 12px; 
+    }
+
+    button:hover {
+      background-color: #2563eb; 
+    }
+
+    .bullet-sections{
+      display: flex;
+      background-color: #ffffff;  
+      padding: 40px;
+      justify-content: space-between;
+    }
+
+    .bullet-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 40px;
+    }
+
+    .image-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-container img {
+      max-width: 90%;
+      height: 90%;
+    }
+
+    .bullet-points {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .bullet-points li {
+      display: flex;
+      align-items: center;
+      gap: 15px; 
+      font-size: 12px;
+      font-weight: normal;
+    }
+
+    .circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 20px;
+      background-color: #3b82f6; 
+    }
+
+    button {
+      padding: 12px 25px;
+      background-color: #3b82f6; 
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #2563eb; 
+    }
+    .our-support {
+      padding: 40px;
+      margin-top: 60px;     
+      padding-top: 60px;    
+    }
+
+    .support-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;     
+      height: 70vh;           
+      background-color: #ffffff; 
+      padding: 20px;
+    }
+
+    .support-text {
+      font-size: 45px;         
+      font-weight: bold;       
+      color: #333;             
+      margin-bottom: 30px;  
+      margin-top: 25px; 
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: space-evenly; 
+      gap: 100px;
+      width: 60%; 
+    }
+
+    .image-container .image-item {
+      text-align: center; 
+      width: 30%; 
+    }
+
+    .image-container img {
+      width: 450px; 
+      height: 450px; 
+      border-radius: 8px; 
+    }
+
+    .image-text {
+      margin-top: 10px; 
+    }
+
+    .image-text .bold {
+      font-weight: bold;
+    }
+    .image-cont {
+      display: flex;
+      justify-content: space-evenly; 
+      gap: 100px;
+      width: 60%; 
+    }
+
+    .image-cont .image-item {
+      text-align: center; 
+      width: 50%; 
+    }
+
+    .image-cont img {
+      width: 150px; 
+      height: 150px; 
+      border-radius: 8px; 
+    }
+
+    .Subscription-Plan {
+      padding: 40px;
+      margin-top: 60px;     
+      padding-top: 60px;    
+    }
+
+    .sub-plan {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px;
+      background-color: #b5daed;
+    }
+
+    .sub-text {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .sub-text h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .sub-text p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    .sub-plan {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px;
+      background-color: #b5daed; 
+    }
+
+    .sub-text {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .sub-text h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .sub-text p {
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .plan-container {
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      gap: 20px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .plan-box {
+      background-color: white;
+      border: 2px solid #007bff; 
+      border-radius: 12px;
+      padding: 30px 20px;
+      width: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .plan-box h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+
+    .plan-box ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+    .plan-box ul .features-heading {
+      position: relative;
+      padding-left: 0;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .plan-box ul .features-heading::before {
+      content: none; 
+    }
+    .plan-box ul li {
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      text-align: left;
+      color: #333;
+    }
+
+    .plan-box ul li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    .plan-box button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 20px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    .plan-box button:hover {
+      background-color: #0056b3;
+    }
+
+    .footer {
+      background-color: #3db4f2;
+      color: #eaf6ff;
+      padding: 40px 60px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .footer-left img {
+      max-width: 160px;
+    }
+
+    .footer-center ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+
+    .footer-center li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 8px 0;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+
+    .footer-right {
+      max-width: 280px;
+      font-size: 14px;
+    }
+
+    .footer-right p {
+      line-height: 1.5;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+      margin: 12px 0;
+      font-size: 18px;
+    }
+
+    .review-line {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: #b0d6f0;
+      margin: 30px 0;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .review-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .review-logos img {
+      height: 30px;
+    }
+
+    /* Mobile Menu Styles */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .mobile-nav {
+      display: none;
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background: rgba(25, 76, 99, 0.95);
+      z-index: 1000;
+      padding: 20px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .mobile-nav.active {
+      display: block;
+    }
+
+    .mobile-nav-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-nav-items li {
+      margin-bottom: 15px;
+    }
+
+    .mobile-nav-items a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      display: block;
+      padding: 10px 0;
+    }
+
+    .mobile-nav-items button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 12px;
+      font-size: 16px;
+    }
+
+    /* RESPONSIVE MEDIA QUERIES */
+    @media (max-width: 1200px) {
+      .bullet-section {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .main_nav {
+        padding: 15px 20px;
+      }
+      
+      .nav_items {
+        display: none;
+      }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .bullet-section, .bullet-sections {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .bullet-points, .image-container {
+        width: 100%;
+        padding: 20px;
+      }
+      
+      .image-container {
+        order: -1;
+        margin-bottom: 20px;
+      }
+      
+      .support-text {
+        font-size: 36px;
+      }
+      
+      .image-container .image-item, .image-cont .image-item {
+        width: 100%;
+        margin-bottom: 30px;
+      }
+      
+      .image-container img {
+        width: 300px;
+        height: 300px;
+      }
+      
+      .footer-top {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .image-gradient {
+        height: auto;
+        min-height: 450px;
+      }
+      
+      .main_section {
+        margin-top: 30px;
+        height: auto;
+        padding: 20px 0;
+      }
+      
+      .main_section h1 {
+        width: auto;
+        font-size: 20px;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+      }
+      
+      .hero-buttons button, .hero-button button {
+        width: 200px;
+        font-size: 16px;
+        padding: 12px 20px;
+      }
+      
+      .blue_block {
+        padding: 30px 20px;
+      }
+      
+      .blue_content {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+      
+      .support-text {
+        font-size: 28px;
+      }
+      
+      .image-container, .image-cont {
+        width: 100%;
+        gap: 50px;
+        flex-direction: column;
+      }
+      
+      .image-container img {
+        width: 250px;
+        height: 250px;
+      }
+      
+      .sub-text h1 {
+        font-size: 2rem;
+      }
+      
+      .plan-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .footer {
+        padding: 30px 20px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .main_nav {
+        padding: 10px 15px;
+      }
+      
+      .main_section h1 {
+        font-size: 18px;
+      }
+      
+      .main_section p {
+        font-size: 14px;
+      }
+      
+      .bullet-points h1 {
+        font-size: 24px;
+      }
+      
+      .support-text {
+        font-size: 24px;
+      }
+      
+      .image-container img {
+        width: 200px;
+        height: 200px;
+      }
+      
+      .image-cont img {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .sub-text h1 {
+        font-size: 1.8rem;
+      }
+      
+      .plan-box {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="image-gradient">
+    <nav class="main_nav">
+      <div>
+        <img src="logo-client-ramp1.webp" alt="logo" width="55%">
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <div class="nav_cont">
+        <ul class="nav_items">
+          <li><a href="#">Support</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Sign In</a></li>
+          <button type="button">Get Started &#8594;</button>
+        </ul>
+      </div>
+      
+      <!-- Mobile Menu Toggle -->
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </nav>
+    
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav" id="mobileNav">
+      <ul class="mobile-nav-items">
+        <li><a href="#">Support</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Sign In</a></li>
+        <button type="button">Get Started &#8594;</button>
+      </ul>
+    </div>
+
+    <div class="main_section">
+      <h1>Manage Your <span style="color: rgb(8, 129, 243);">Clients and Projects</span></h1>
+      <p>Track your clients, projects, and team all in one place</p>
+      <div>
+        <div class="hero-buttons">
+          <button>Get Started Free</button>
+          <div class="hero-button">
+            <button>Sign In</button>
+          </div>
+        </div>
+        <p>No credit card required to get Started.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Rest of your content remains exactly the same -->
+  <main>
+    <section class="blue_block">
+      <ul class="blue_content">
+        <li>
+          <h2>2,486</h2>
+          <p>Subscribers</p>
+        </li>
+        <li>
+          <h2>645,089</h2>
+          <p>Open Projects</p>
+        </li>
+        <li>
+          <h2>152,834</h2>
+          <p>Finished Projects</p>
+        </li>
+        <li>
+          <h2>32,392</h2>
+          <p>Project Members</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="bullet-section">
+      <div class="bullet-points">
+        <h1>Manage Project</h1>
+        <p>Stay organized with a centralized <a style="color: rgb(55, 138, 216); text-decoration: underline;" href="">platform for project creation</a>, task assignment, and deadline tracking.</p>
+        <h3>Key Features</h3>
+        <ul>
+          <li>
+            <div class="circle"><span>&#10003;</span></div>
+            <p>Assign tasks to team members</p>
+          </li>
+          <li>
+            <div class="circle"><span>&#10003;</span></div>
+            <p>Monitor progress and set milestones</p>
+          </li>
+          <li>
+            <div class="circle"><span>&#10003;</span></div>
+            <p>Log every action and ensure timely delivery</p>
+          </li>
+          <li>
+            <div class="circle yellow"><span>&#9733;</span></div>
+            <p>Private label for your website and users</p>
+          </li>
+        </ul>
+        <button>Get Started Now &#8594;</button>
+      </div>
+      <div class="image-container">
+        <img src="manage-projects.webp" alt="Image" />
+      </div>
+    </section>
+  
+    <section>
+          <div class="bullet-sections">
+          
+            <div class="image-container">
+              <img src="manage-clients.webp" alt="Image" />
+            </div>
+            
+            <div class="bullet-points">
+              <h1>Manage clients</h1>
+              <p>Easy add,update, and  <a style = "color:  rgb(55, 138, 216); text-decoration: underline;"href="">track client details </a> for any stage of a project with steamless communication.</p>
+              <h3>Key Features</h3>
+              <ul>
+                <li>
+                  <div class="circle"><span>&#10003;</span></div>
+                  <p>Track contact details ,project history, and invoices.</p>
+                </li>
+                <li>
+                  <div class="circle"><span>&#10003;</span></div>
+                  <p>Manage meetings, calls, and notes.</p>
+                </li>
+                <li>
+                  <div class="circle"><span>&#10003;</span></div>
+                  <p>Share client details with your team securely.</p>
+                </li>
+                
+              </ul>
+              <button>Get Started Now &#8594;</button>
+            </div>   
+    </section>
+    <section class="bullet-section">
+      <div class="bullet-points">
+        <h1>Manage Quotations</h1>
+        <p><a style="color:  rgb(55, 138, 216); text-decoration: underline;" href="">Create and track project quotes</a> with ease by organizing your project quotations.</p>
+        <h3>Key Features</h3>
+        <ul>
+          <li>
+            <div class="circle"><span>&#10003;</span></div>
+            <p>Generate customizable PDFs.</p>
+          </li>
+          <li>
+            <div class="circle"><span>&#10003;</span></div>
+            <p>Monitor quote statuses and approvals.</p>
+          </li>
+          <li>
+            <div class="circle"><span>&#10003;</span></div>
+            <p>Simplify follow-ups for better deal closures</p>
+          </li>
+         
+        </ul>
+        <button>Get Started Now &#8594;</button>
+      </div>
+      <div class="image-container">
+        <img src="manage-qoutations.webp" alt="Image" />
+      </div>
+    </section>
+  
+    <section>
+          <div class="bullet-sections">
+          
+            <div class="image-container">
+              <img src="manage-invoices.webp" alt="Image" />
+            </div>
+            
+            <div class="bullet-points">
+              <h1>Manage Invoices</h1>
+              <p>Simplify biling processes and get paid faster by <a style="color:  rgb(55, 138, 216); text-decoration: underline;" href="">managing project invoices</a> efficiently.</p>
+              <h3>Key Features</h3>
+              <ul>
+                <li>
+                  <div class="circle"><span>&#10003;</span></div>
+                  <p>Create tailered invoices with your branding.</p>
+                </li>
+                <li>
+                  <div class="circle"><span>&#10003;</span></div>
+                  <p>Integrate PayPal for steamless payments.</p>
+                </li>
+                <li>
+                  <div class="circle"><span>&#10003;</span></div>
+                  <p>Enjoy real-time payment tracking.</p>
+                </li>
+                <li>
+                  <div class="circle yellow"><span>&#9733;</span></div>
+                  <p>Integrate with your QUICKBOOKS account.</p>
+                </li>
+              </ul>
+              <button>Get Started Now &#8594;</button>
+            </div>   
+    </section>
+    <section class="bullet-section">
+      <div class="bullet-points">
+        <h1>Admistration</h1>
+        <p>Take control of  <a style="color:  rgb(55, 138, 216); text-decoration: underline;" href="">managing user settings</a>, user permissions,subscriptions and system security.</p>
+        <h3>Key Features</h3>
+        <ul>
+          <li>
+            <div class="circle"><span>&#10003;</span></div>
+            <p>Set user roles and permissions.</p>
+          </li>
+          <li>
+            <div class="circle"><span>&#10003;</span></div>
+            <p>Manage sensitive data with confidence.</p>
+          </li>
+          <li>
+            <div class="circle"><span>&#10003;</span></div>
+            <p>Adapt as your business grows.</p>
+          </li>
+          
+        </ul>
+        <button>Get Started Now &#8594;</button>
+      </div>
+      <div class="image-container">
+        <img src="adminstration.webp" alt="Image" />
+      </div>
+    </section>
+  
+    <section>
+          <div class="bullet-sections">
+          
+            <div class="image-container">
+              <img src="manage-video.webp" alt="Image" />
+            </div>
+            
+            <div class="bullet-points">
+              <h1>Messeging and Video </h1>
+              <p>Improve <a style ="color:rgb(55, 138, 216); text-decoration: underline;" href="">client communication</a>with our real-time instant messaging and video tools.</p>
+              <h3>Key Features</h3>
+              <ul>
+                <li>
+                  <div class="circle"><span>&#10003;</span></div>
+                  <p>Group and one -on-one chats.</p>
+                </li>
+                <li>
+                  <div class="circle"><span>&#10003;</span></div>
+                  <p>Instant file sharing.</p>
+                </li>
+                <li>
+                  <div class="circle"><span>&#10003;</span></div>
+                  <p>Host and record video meetings.</p>
+                </li>
+                
+              </ul>
+              <button>Get Started Now &#8594;</button>
+            </div>  
+            </section> 
+            <br><br><br><br><br><br><br><br><br><br><br><br>
+              <section class="support-section">
+                <div class="support-text">
+                  Our Support
+                </div>
+                <div class="image-cont">
+                  <div class="image-item">
+                    <img src="noun-support-4831710.webp" alt="Image 1">
+                    <div class="image-text">
+                      <p class="bold">Support when you need it</p>
+                      <p>Get guidance from our dedicated support team.</p>
+                    </div>
+                  </div>
+                  <div class="image-item">
+                    <img src="noun-assistance-6762704.webp" alt="Image 2">
+                    <div class="image-text">
+                      <p class="bold">Personalized Assistance</p>
+                      <p>Tailered solution for your unique business needs.</p>
+                    </div>
+                  </div>
+                  <div class="image-item">
+                    <img src="noun-24hr-helpline-3309604.webp" alt="Image 3">
+                    <div class="image-text">
+                      <div class="sub-text">
+                        <h1>Subscription Plan</h1>
+                        <p>Choose the perfect plan for your business</p>
+                      </div>
+                      <p class="bold">Availabe Anytime </p>
+                      <p>24/7/365 support to keep your business running smoothly.</p>
+                    </div>
+                  </div>
+                </div>
+                
+              </section>
+              <br><br><br>
+
+              <section class="sub-plan">
+                
+             
+                <div class="plan-container">
+                  <div class="plan-box">
+                    <h2>Trial Plan</h2>
+                    <p>Price: $0/month</p>
+                    <ul>
+                      <li class="features-heading"><b>Features</b></li>
+                      <li>Manage up to 5 clients</li>
+                      <li>Access to basic project management tools</li>
+                      <li>Create and send up to 5 quotes per month</li>
+                      <li>Generate up to 5 invoices per month</li>
+                      <li>Limited chat functionality (basic messaging only)</li>
+                      <li>Basic reporting and analytics</li>
+                      <li>Community support</li>
+                    </ul>
+                    <button>Order Now</button>
+                  </div>
+              
+                  <div class="plan-box">
+                    <h2>Starter Plan</h2>
+                    <p>Price: $20/month</p>
+                    <ul>
+                      <li class="features-heading"><b>Features</b></li>
+                      <li>Manage up to 100 clients</li>
+                      <li>All project management features including task assignment</li>
+                      <li>Unlimited quotes and invoices</li>
+                      <li>Integration with PayPal and QuickBooks</li>
+                      <li>Full chat functionality (including file sharing)</li>
+                      <li>Advanced reporting and analytics</li>
+                      <li>Email support</li>
+                    </ul>
+                    <button>Order Now</button>
+                  </div>
+              
+                  <div class="plan-box">
+                    <h2>Pro Plan</h2>
+                    <p>Price: $50/month</p>
+                    <ul>
+                      <li class="features-heading"><b>Features</b></li>
+                      <li>Manage up to 500 clients</li>
+                      <li>All features from Starter plan</li>
+                      <li>Customizable workflows and templates</li>
+                      <li>Mobile app access with real-time sync</li>
+                      <li>Priority email and chat support</li>
+                      <li>Data export capabilities (CSV/PDF)</li>
+                      <li>Team performance insights and analytics</li>
+                    </ul>
+                    <button>Order Now</button>
+                  </div>
+                </div>
+              </section>
+                  
+                  <div class="footer-left">
+                    <img src="logo-client-ramp1.webp" alt="ClientRamp Logo">
+                  </div>
+              
+                 
+                  <div class="footer-center">
+                    <ul>
+                      <li><i class="fas fa-sign-in-alt"></i> Get Started Now</li>
+                      <li><i class="fas fa-sign-in-alt"></i> Sign In</li>
+                      <li><i class="fas fa-sign-in-alt"></i> Support</li>
+                      <li><i class="fas fa-sign-in-alt"></i> FAQ</li>
+                      <li><i class="fas fa-sign-in-alt"></i> About Us</li>
+                      <li><i class="fas fa-sign-in-alt"></i> Blog</li>
+                      <li><i class="fas fa-envelope"></i> Contact Us</li>
+                    </ul>
+                  </div>
+              
+                
+                  <div class="footer-right">
+                    <p><i class="fas fa-map-marker-alt"></i> 1105 Tryon Village Drive Suite 303 #27 Cary, NC 27518</p>
+                    <div class="social-icons">
+                      <i class="fab fa-facebook-f"></i>
+                      <i class="fab fa-linkedin-in"></i>
+                      <i class="fas fa-envelope"></i>
+                      <i class="fab fa-instagram"></i>
+                      <i class="fab fa-youtube"></i>
+                      <i class="fab fa-pinterest-p"></i>
+                      <i class="fab fa-tiktok"></i>
+                    </div>
+                    <p class="review-line">Write us a review at: <br> SourceForge, Capterra, G2, Product Hunt, Slashdot, Crozdesk and Trustpilot.</p>
+                  </div>
+                </div>
+              
+                <hr>
+              
+                <div class="footer-bottom">
+                  <p>
+                    © 2025 ClientRamp – All rights reserved. Use of this website constitutes acceptance of our Subscription Agreement, User Agreement, Privacy Policy and Cookie Policy. ClientRamp trademarks, product names, logos and other marks and designs are trademarks of OrganicRankings.com, LLC. or its subsidiaries and may not be used without permission.
+                  </p>
+                  <div class="review-logos">
+                    <img src="capterra.png" alt="Capterra">
+                    <img src="producthunt.png" alt="Product Hunt">
+                    <img src="g2crowd.png" alt="G2">
+                    <img src="techradar.png" alt="TechRadar">
+                    <img src="sourceforge.png" alt="SourceForge">
+                  </div>
+                </div>
+              </footer>
+               
+  </main>
+
+  <script>
+    // Mobile menu toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.getElementById('menuToggle');
+      const mobileNav = document.getElementById('mobileNav');
+      
+      menuToggle.addEventListener('click', function() {
+        mobileNav.classList.toggle('active');
+        
+        // Change icon based on menu state
+        if (mobileNav.classList.contains('active')) {
+          menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+        } else {
+          menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!menuToggle.contains(event.target) && !mobileNav.contains(event.target)) {
+          mobileNav.classList.remove('active');
+          menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
