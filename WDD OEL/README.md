@@ -1,4 +1,5 @@
 # 👟 Shoe Point - Complete E-commerce System
+![Uploading Screen Shot 2025-10-01 at 6.14.39 PM.png…]()
 
 A modern, full-stack e-commerce platform specializing in athletic footwear with integrated payment processing and comprehensive admin management system.
 
@@ -211,5 +212,6 @@ Your Shoe Point system is now a complete e-commerce platform with:
 You can now manage your entire shoe business through the admin dashboard without touching any code!
 
 ---
+
 
 **Built with ❤️ for Shoe Point - Your Complete E-commerce Solution**
